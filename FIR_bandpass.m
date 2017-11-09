@@ -1,4 +1,11 @@
 function [hk, Hr] = FIR_bandpass(Wc,Rp,Rs,order)
+% Wc is vector of 2 normalized frequencies, nomalized with Nyquist
+% frequency
+% Rs is passband attenuation
+% Rp is stopband attenuation
+% order is the order of the filter, the length of the impulse response will
+% be order + 1
+
 N0=order+1;
 
 lowIndex = ceil(N0/2*Wc(1));

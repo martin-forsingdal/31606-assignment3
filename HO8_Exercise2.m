@@ -5,6 +5,9 @@ close all;
 clc;
 
 %% Test
-order=300;
-[h, Hr] = FIR_bandpass([0.2,0.6],-10,20,order);
-freqz(h.*hann(N0)');
+order=100;
+[h, Hr] = FIR_bandpass([0.2,0.6],-10,0,order);
+figure(1);
+freqz(h);
+figure(2);
+freqz(h.*hann(order+1)');
