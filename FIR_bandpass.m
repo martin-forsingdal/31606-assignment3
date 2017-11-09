@@ -1,11 +1,12 @@
-function [hk, Hr] = FIR_bandpass(Wc,Rp,N0)
+function [hk, Hr] = FIR_bandpass(Wc,Rp,Rs,order)
+N0=order+1;
 
 lowIndex = ceil(N0/2*Wc(1));
 highIndex = ceil(N0/2*Wc(2));
 
-H = ones(1,N0) * db2mag(Rp);
-H(lowIndex:highIndex) = 1;
-H(N0-highIndex+1:N0-lowIndex+1) = 1;
+H = ones(1,N0) * db2mag(-Rs);
+H(lowIndex:highIndex) = 1 * db2mag(-Rp);
+H(N0-highIndex+1:N0-lowIndex+1) = 1 * db2mag(-Rp);
 figure(1);
 stem(H,'r');
 
@@ -17,8 +18,6 @@ for i = 1:N0
     % Compute the elements
     Hr(i) = H(i)*exp(j*r*pi*(N0-1)/N0);
 end
-% Set number of samples
-k = 0:N0-1;
 % Find the impulseresponse by inverse Fourier transform
 hk = real(ifft(Hr));
 
