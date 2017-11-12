@@ -98,29 +98,45 @@ xlim([0 1]);
 title('Phase','FontSize',15);
 % Export the figure
 % hgexport(gcf,'equalizer_filter');
+hold off;
 
-%% Truncate the impulse response of the filter
+%% Zero-pad the impulse response of the filter
+% Find the impulseresponse of the filter
 hk = ifft(H);
+% Zero-pad the impulse response
 hk = [hk, zeros(1,10*length(hk))];
+% Plot the zero_padded impulse response
 figure(3);
-H0 = fft(hk);
-plot(mag2db(abs(H0)),'r');
-xlim([0 (1001*10)/2])
+freqz(hk);
 
 %% Test on white noise
-fs = 400;
+% Define the sampling frequency
+fs = 5000;
+% Create the white noise signal
 n = rand(fs*2,1)*2-1;
-white_noise = n/max(n)*.99;
-%sound(white_noise,fs);
-filtered = real(filter(ifft(H),1,white_noise));
-White_noise = fft(white_noise)/length(white_noise);
-Filtered = fft(filtered)/length(white_noise);
-freq = 0:fs/length(filtered):fs-fs/length(filtered);
-t = 0:1/fs:2-1/fs;
+white_noise = n/max(n);
+% Filter the white noise signal through the filter
+white_noise_filt = filter(hk,1,white_noise);
+% Compute the Fourier transforms of the white noise signals
+Wnoise = fft(white_noise);
+% Perform scaling
+Wnoise = Wnoise/length(white_noise);
+Wnoisefilt = fft(white_noise_filt);
+% Perform scaling
+Wnoisefilt = Wnoisefilt/length(white_noise_filt);
+% Define the spectral resolution
+F0 = 1/2;
+% Generate the frequency axis
+freq = 0:1/2:fs-F0;
+% Plot the magnitude response of the white noise on top of the filtered
+% white noise 
 figure(4);
-plot(freq-fs/2,fftshift(abs(Filtered)),'r');
+plot(freq-fs/2,fftshift(mag2db(abs(Wnoise))),'b');
 hold on;
-plot(freq-fs/2,fftshift(abs(White_noise)),'b');
-
-%%
-freqz(ifft(H));
+plot(freq-fs/2,fftshift(mag2db(abs(Wnoisefilt))),'r');
+xlabel('Frequency [Hz]','FontSize',12);
+ylabel('Gain [dB]','FontSize',12);
+legend({'White noise','Filtered white noise'},'FontSize',12);
+grid on;
+ylim([-80 max([max(mag2db(abs(Wnoisefilt))) max(mag2db(abs(Wnoise)))])]);
+hold off;
