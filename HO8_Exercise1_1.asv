@@ -59,16 +59,12 @@ ylabel('\angle H [degrees]')
 set(gca, 'Fontsize', 14);
 grid on
 legend('\angle H')
-% Export
-hgexport(gcf, 'handson8_spec_orig.eps')
 %% pole/zero location 
 figure('Name', 'Pole and zero location', 'position', [800 200 500 500]);
 p_pz=zplane(B, A);
 set(gca, 'Fontsize', 14)
 set(p_pz, 'Linewidth', 1.2)
 grid on
-% Export
-hgexport(gcf, 'handson8_pz.eps')
 %% Impulse response
 % Compute the 10000 element impulse response
 [h, t] = impz(B,A,1e5);
@@ -107,15 +103,12 @@ p_eff75=stem(0:length(h_eff75)-1, h_eff75, 'r.');
 p_eff60=stem(0:length(h_eff60)-1, h_eff60, 'm.');
 p_eff40=stem(0:length(h_eff40)-1, h_eff40, 'b.');
 p_eff10=stem(0:length(h_eff10)-1, h_eff10, 'g.');
-xlabel('k [sample number]')
+xlabel('[sample number k')
 ylabel('|A| a.u.')
-legend('h_{eff}[k]', '75% of h_{eff}[k]', '60% of h_{eff}[k]',...
-    '40% of h_{eff}[k]','10% of h_{eff}[k]',...
+legend('h_{eff}', '75% of h_{eff}', '60% of h_{eff}',...
+    '40% of h_{eff}','10% of h_{eff}',...
     'Location', 'NorthEastOutside') 
 set(gca, 'Fontsize', 14)
-grid on
-% Export
-hgexport(gcf, 'handson8_impulse_responses.eps')
 % plot frequency responses on top of each other.
 figure('Name', 'frequency responses', 'Position', [700, 100, 900, 850])
 % Plot the magnitude response
@@ -128,11 +121,9 @@ P_eff40=plot(freq_eff40-1, fftshift(mag2db(abs(H_eff40))), 'b-');
 P_eff10=plot(freq_eff10-1, fftshift(mag2db(abs(H_eff10))), 'g-');
 xlabel('Normalized frequency')
 ylabel('|H| [dB]')
-title('Magnitude resposne')
 grid on
-legend('DFT of h_{eff}[k]', 'DFT of 75% of h_{eff}[k]',...
-    'DFT of 60% of h_{eff}[k]',...
-    'DFT of 40% of h_{eff}[k]','DFT of 10% of h_{eff}[k]',...
+legend('DFT of h_{eff}', 'DFT of 75% of h_{eff}', 'DFT of 60% of h_{eff}',...
+    'DFT of 40% of h_{eff}','DFT of 10% of h_{eff}',...
     'Location', 'NorthEastOutside') 
 set(gca, 'Fontsize', 14)
 lw=1.2;
@@ -151,18 +142,14 @@ P_eff40=plot(freq_eff40-1, fftshift(rad2deg(angle(H_eff40))), 'b-');
 P_eff10=plot(freq_eff10-1, fftshift(rad2deg(angle(H_eff10))), 'g-');
 xlabel('Normalized frequency')
 ylabel('|H| [dB]')
-title('Phase resposne')
 grid on
-legend('DFT of h_{eff}[k]', 'DFT of 75% of h_{eff}[k]',...
-    'DFT of 60% of h_{eff}[k]',...
-    'DFT of 40% of h_{eff}[k]','DFT of 10% of h_{eff}[k]',...
+legend('h_{eff}', '75% of h_{eff}', '60% of h_{eff}',...
+    '40% of h_{eff}','10% of h_{eff}',...
     'Location', 'NorthEastOutside') 
 set(gca, 'Fontsize', 14)
 lw=1.2;
-set(P_eff, 'Linewidth', 1)
-set(P_eff75, 'Linewidth', 1)
-set(P_eff60, 'Linewidth', 1)
-set(P_eff40, 'Linewidth', 1)
-set(P_eff10, 'Linewidth', 1)
-% Export
-hgexport(gcf, 'handson8_spec_cutted.eps')
+set(P_eff, 'Linewidth', lw)
+set(P_eff75, 'Linewidth', lw)
+set(P_eff60, 'Linewidth', lw)
+set(P_eff40, 'Linewidth', lw)
+set(P_eff10, 'Linewidth', lw)
