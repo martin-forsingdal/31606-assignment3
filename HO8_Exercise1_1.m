@@ -104,15 +104,20 @@ figure('Name', 'impulse responses', 'Position', [700, 100, 800, 300])
 p_eff=stem(0:length(h_eff)-1, h_eff, 'k.');
 hold on
 p_eff75=stem(0:length(h_eff75)-1, h_eff75, 'r.');
-p_eff60=stem(0:length(h_eff60)-1, h_eff60, 'm.');
+p_eff60=stem(0:length(h_eff60)-1, h_eff60, 'c.');
 p_eff40=stem(0:length(h_eff40)-1, h_eff40, 'b.');
 p_eff10=stem(0:length(h_eff10)-1, h_eff10, 'g.');
 xlabel('k [sample number]')
-ylabel('|A| a.u.')
+ylabel('Amplitude a.u.')
 legend('h_{eff}[k]', '75% of h_{eff}[k]', '60% of h_{eff}[k]',...
     '40% of h_{eff}[k]','10% of h_{eff}[k]',...
     'Location', 'NorthEastOutside') 
 set(gca, 'Fontsize', 14)
+set(p_eff, 'Linewidth', 1, 'Markersize', 1);
+set(p_eff75, 'Linewidth', 1.1, 'Markersize', 1.1);
+set(p_eff60, 'Linewidth', 1.2, 'Markersize', 1.2);
+set(p_eff40, 'Linewidth', 1.3, 'Markersize', 1.3);
+set(p_eff10, 'Linewidth', 1.4, 'Markersize', 1.4);
 grid on
 % Export
 hgexport(gcf, 'handson8_impulse_responses.eps')
