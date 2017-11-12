@@ -57,11 +57,12 @@ plot((-order/2:order/2)/order*fs,fftshift(mag2db(abs(H_b2))),'g','LineWidth',2);
 plot((-order/2:order/2)/order*fs,fftshift(mag2db(abs(H_b3))),'m','LineWidth',2);
 % Plot the fourth bandpass filter
 plot((-order/2:order/2)/order*fs,fftshift(mag2db(abs(H_b4))),'y','LineWidth',2);
-xlabel('Normalized frequency [\times \pi rad/sample]','FontSize',15);
+xlabel('Normalized frequency [\times \pi rad/sample]','FontSize',12);
 ylabel('Gain [dB]','FontSize',15);
-legend({'Combined Bandpass','Lowpass [0,0.1]','Bandpass [0.1,0.3]',...
-    'Bandpass [0.3,0.497]','Bandpass [0.502,0.69]','Bandpass [0.703,0.9]'}...
-    ,'FontSize',15);
+legend({'Combined Bandpass','Lowpass','First bandpass',...
+    'Second bandpass','Third bandpass','Fourth bandpass'}...
+    ,'FontSize',12);
+title('Magnitude','FontSize',15);
 xlim([0 1])
 hk = ifft(H);
 hold off
@@ -69,11 +70,13 @@ subplot(3,1,3);
 % Plot the phase of the combined filter
 plot((-order/2:order/2)/order*fs,fftshift(rad2deg(unwrap(angle(H)))),'k',...
     'LineWidth',1);
-xlabel('Normalized frequency [\times \pi rad/sample]','FontSize',15);
-ylabel('Phase [deg]','FontSize',15);
+xlabel('Normalized frequency [\times \pi rad/sample]','FontSize',12);
+ylabel('Phase [deg]','FontSize',12);
 grid on;
 xlim([0 1]);
-
+title('Phase','FontSize',15);
+% Export the figure
+% hgexport(gcf,'filter_responses');
 %% Test the FIR_eq function
 % Create a filter with the attenuations given by the inputs to FIR_eq
 [wk, H] = FIR_eq(-3,-1.5,1,0.5,0.3);
@@ -81,13 +84,17 @@ xlim([0 1]);
 figure(2);
 subplot(3,1,[1 2]);
 plot(wk,fftshift(mag2db(abs(H))),'k','LineWidth',2);
-xlabel('Normalized frequency [\times \pi rad/sample]','FontSize',15);
-ylabel('Gain [dB]');
+xlabel('Normalized frequency [\times \pi rad/sample]','FontSize',12);
+ylabel('Gain [dB]','FontSize',12);
 grid on;
 xlim([0 1]);
+title('Magnitude','FontSize',15);
 subplot(3,1,3);
 plot(wk,fftshift(rad2deg(unwrap(angle(H)))),'k','LineWidth',2)
-xlabel('Normalized frequency [\times \pi rad/sample]','FontSize',15);
-ylabel('Phase [deg]','FontSize',15);
+xlabel('Normalized frequency [\times \pi rad/sample]','FontSize',12);
+ylabel('Phase [deg]','FontSize',12);
 grid on;
 xlim([0 1]);
+title('Phase','FontSize',15);
+% Export the figure
+% hgexport(gcf,'equalizer_filter');
