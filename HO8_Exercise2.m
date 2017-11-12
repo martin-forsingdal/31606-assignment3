@@ -1,4 +1,4 @@
-% Exercise 2
+% Exercise 1
 % Clear all variables and command window 
 clear all;
 close all;
@@ -19,7 +19,7 @@ w_b2 = 0.181406;
 w_b3 = 0.272109;
 w_b4 = 0.725624;
 % Set the offset frequency
-offset = 0.004/5;
+offset = 0.004/2;
 % Create the individual filters 
 [h_l,~] = FIR_lowpass(w_l-offset,-3,0,order);
 [h_b1,~] = FIR_bandpass([w_l+offset,w_b1-offset],-1.5,0,order);
@@ -79,7 +79,7 @@ title('Phase','FontSize',15);
 % hgexport(gcf,'filter_responses');
 %% Test the FIR_eq function
 % Create a filter with the attenuations given by the inputs to FIR_eq
-[wk, H] = FIR_eq(-3,-1.5,1,0.5,0.3);
+[wk, H] = FIR_eq(-10,-5,0,5,10);
 % Plot the resulting filter
 figure(2);
 subplot(3,1,[1 2]);
@@ -98,3 +98,29 @@ xlim([0 1]);
 title('Phase','FontSize',15);
 % Export the figure
 % hgexport(gcf,'equalizer_filter');
+
+%% Truncate the impulse response of the filter
+hk = ifft(H);
+hk = [hk, zeros(1,10*length(hk))];
+figure(3);
+H0 = fft(hk);
+plot(mag2db(abs(H0)),'r');
+xlim([0 (1001*10)/2])
+
+%% Test on white noise
+fs = 400;
+n = rand(fs*2,1)*2-1;
+white_noise = n/max(n)*.99;
+%sound(white_noise,fs);
+filtered = real(filter(ifft(H),1,white_noise));
+White_noise = fft(white_noise)/length(white_noise);
+Filtered = fft(filtered)/length(white_noise);
+freq = 0:fs/length(filtered):fs-fs/length(filtered);
+t = 0:1/fs:2-1/fs;
+figure(4);
+plot(freq-fs/2,fftshift(abs(Filtered)),'r');
+hold on;
+plot(freq-fs/2,fftshift(abs(White_noise)),'b');
+
+%%
+freqz(ifft(H));
