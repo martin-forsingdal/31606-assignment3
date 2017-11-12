@@ -100,7 +100,7 @@ fs=2;
 %% Plot impulse responses and frequency responses
 close all;
 % plot impulse responses on top of each other
-figure('Name', 'impulse responses', 'Position', [700, 100, 900, 400])
+figure('Name', 'impulse responses', 'Position', [700, 100, 800, 300])
 p_eff=stem(0:length(h_eff)-1, h_eff, 'k.');
 hold on
 p_eff75=stem(0:length(h_eff75)-1, h_eff75, 'r.');
@@ -128,7 +128,7 @@ P_eff40=plot(freq_eff40-1, fftshift(mag2db(abs(H_eff40))), 'b-');
 P_eff10=plot(freq_eff10-1, fftshift(mag2db(abs(H_eff10))), 'g-');
 xlabel('Normalized frequency')
 ylabel('|H| [dB]')
-title('Magnitude resposne')
+title('Magnitude response')
 grid on
 legend('DFT of h_{eff}[k]', 'DFT of 75% of h_{eff}[k]',...
     'DFT of 60% of h_{eff}[k]',...
@@ -150,8 +150,8 @@ P_eff60=plot(freq_eff60-1, fftshift(rad2deg(angle(H_eff60))), 'm-');
 P_eff40=plot(freq_eff40-1, fftshift(rad2deg(angle(H_eff40))), 'b-');
 P_eff10=plot(freq_eff10-1, fftshift(rad2deg(angle(H_eff10))), 'g-');
 xlabel('Normalized frequency')
-ylabel('|H| [dB]')
-title('Phase resposne')
+ylabel('\angle H [degrees]')
+title('Phase response')
 grid on
 legend('DFT of h_{eff}[k]', 'DFT of 75% of h_{eff}[k]',...
     'DFT of 60% of h_{eff}[k]',...
