@@ -5,8 +5,6 @@ close all;
 clc;
 
 %% Test
-<<<<<<< HEAD
-
 
 [wk, H] = FIR_eq(-3,-1.5,1,0.5,0.3);
 
@@ -69,11 +67,4 @@ xlabel('Normalized frequency [\times \pi rad/sample]','FontSize',15);
 ylabel('Phase [deg]','FontSize',15);
 grid on;
 xlim([0 1]);
-=======
-order=100;
-[h, Hr] = FIR_bandpass([0.2,0.6],-10,0,order);
-figure(1);
-freqz(h);
-figure(2);
-freqz(h.*hann(order+1)');
->>>>>>> 1243aaedcfeadf7a02c882e8cfdb6abefbce8a17
+
