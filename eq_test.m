@@ -14,7 +14,7 @@ t = 0:1/fs:dur-1/fs;
 soundsc(testsignal,fs);
 
 %% create eq filter
-[wk, H]=FIR_eq(-3,-2,2,0,-1);
+[wk, H]=FIR_eq(-10,-5,0,5,10);
 testsignal_filter=real(filter(ifft(H),1,testsignal));
 figure(1);
 freqz(ifft(H));

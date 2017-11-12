@@ -140,3 +140,36 @@ legend({'White noise','Filtered white noise'},'FontSize',12);
 grid on;
 ylim([-80 max([max(mag2db(abs(Wnoisefilt))) max(mag2db(abs(Wnoise)))])]);
 hold off;
+% Export figure
+% hgexport(gcf,'White_noise');
+
+%% Read sound file
+close all;
+% Filename = 'Steely Dan - Jack Of Speed.mp3';
+filename = 'Aqua - Doctor Jones.mp3';
+% Read the sound signal into Matlab
+[soundsignal, fs] = audioread(filename);
+% Take a bit of the entire signal to process
+testsignal=soundsignal(floor(1/18*end):floor(1/10*end));
+% Compute the duration of the signal
+dur = length(testsignal)/fs;
+% Create the time vector
+t = 0:1/fs:dur-1/fs;
+%% Play the sound file
+soundsc(testsignal,fs);
+
+%% Create equalizer filter and do filtering
+% Create the equalizer filter with the gains specified as the inputs
+[wk, H]=FIR_eq(-10,-5,0,5,10);
+% Compute impulse response
+hk = real(ifft(H));
+% Filter the sound signal with the equalizer filter
+testsignal_filter=real(filter(hk,1,testsignal));
+%% Play filtered signal
+soundsc(testsignal_filter,fs);
+
+%% Plot frequency response of original and filtered signal
+figure(5);
+freqz(fft(testsignal)/length(testsignal));
+figure(6);
+freqz(fft(testsignal_filter)/length(testsignal_filter));
