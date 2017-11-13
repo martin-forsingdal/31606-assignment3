@@ -41,7 +41,7 @@ grid on
 set(gca, 'Fontsize', 14)
 % Plot the phase of the frequency response
 subplot(2,1,2)
-stem(freq-pi*fs, fftshift(rad2deg(angle(H))), 'r.')
+stem(freq-pi*fs, -fftshift(rad2deg(angle(H))), 'r.')
 xlabel('\omega [rad/s]');
 ylabel('\angle H [degrees]')
 ylim([-190, 190])
@@ -149,11 +149,11 @@ set(P_m21, 'Linewidth', lw)
 set(P_m11, 'Linewidth', lw)
 % Plot the phase of the frequency response
 subplot(2,1,2)
-P_p601=plot(freq-pi*fs, fftshift(rad2deg(unwrap(angle(H)))), 'k-');
+P_p601=plot(freq-pi*fs, -fftshift(rad2deg(unwrap(angle(H)))), 'k-');
 hold on
-P_p101=plot(freq-pi*fs, fftshift(rad2deg(unwrap(angle(H_101)))), 'b-');
-P_p21=plot(freq-pi*fs, fftshift(rad2deg(unwrap(angle(H_21)))), 'r-');
-P_p11=plot(freq-pi*fs, fftshift(rad2deg(unwrap(angle(H_11)))), 'm-');
+P_p101=plot(freq-pi*fs, -fftshift(rad2deg(unwrap(angle(H_101)))), 'b-');
+P_p21=plot(freq-pi*fs, -fftshift(rad2deg(unwrap(angle(H_21)))), 'r-');
+P_p11=plot(freq-pi*fs, -fftshift(rad2deg(unwrap(angle(H_11)))), 'm-');
 xlabel('\omega [rad/s]')
 ylabel('\angle H [degrees]')
 title('Phase response')
@@ -161,7 +161,7 @@ grid on
 legend('DFT of h[k]', 'DFT of 101 non-zero element h[k]',...
     'DFT of 21 non-zero element h[k]',...
     'DFT of 11 non-zero element h[k]',...
-    'Location', 'northeast') 
+    'Location', 'southeast') 
 set(gca, 'Fontsize', 14)
 set(P_p601, 'Linewidth', lw)
 set(P_p101, 'Linewidth', lw)
